@@ -20,4 +20,15 @@ describe('REST API with Cypress', () => {
             .its('body')
             .should('include', {name : 'pikachu'})
     });
+
+    it('API Test - Negative Response', () => {
+        cy.request({
+            method: "GET",
+            url: 'https://pokeapi.co/api/v2/pokemon/7777',
+            failOnStatusCode : false
+        }).as('pokemon')
+        cy.get('@pokemon')
+        .its('status')
+        .should('eq', 404)
+    });
 });
